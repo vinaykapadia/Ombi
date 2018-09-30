@@ -4,6 +4,7 @@ using AutoMapper;
 using AutoMapper.EquivalencyExpression;
 using Hangfire;
 using Hangfire.Dashboard;
+using Hangfire.MySql.Core;
 using Hangfire.SQLite;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -122,7 +123,16 @@ namespace Ombi
 
             services.AddHangfire(x =>
             {
+                if (i.MySqlConnection.HasValue())
+                {
+
+                x.UseStorage(new MySqlStorage(i.MySqlConnection));
+                }
+                else
+                {
+
                 x.UseSQLiteStorage(sqliteStorage);
+                }
                 x.UseActivator(new IoCJobActivator(services.BuildServiceProvider()));
                 //x.UseConsole();
             });

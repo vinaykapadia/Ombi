@@ -24,12 +24,14 @@ namespace Ombi
             var host = string.Empty;
             var storagePath = string.Empty;
             var baseUrl = string.Empty;
+            var mysql = string.Empty;
             var result = Parser.Default.ParseArguments<Options>(args)
                 .WithParsed(o =>
                 {
                     host = o.Host;
                     storagePath = o.StoragePath;
                     baseUrl = o.BaseUrl;
+                    mysql = o.MySqlConnection;
                 }).WithNotParsed(err =>
                 {
                     foreach (var e in err)
@@ -45,6 +47,7 @@ namespace Ombi
             var urlValue = string.Empty;
             var instance = StoragePathSingleton.Instance;
             instance.StoragePath = storagePath ?? string.Empty;
+            instance.MySqlConnection = mysql ?? string.Empty;
             using (var ctx = new OmbiContext())
             {
                 var config = ctx.ApplicationConfigurations.ToList();
@@ -142,6 +145,9 @@ namespace Ombi
 
         [Option("baseurl", Required = false, HelpText = "The base URL for reverse proxy scenarios")]
         public string BaseUrl { get; set; }
+
+        [Option("mysql", Required = false, HelpText = "Example: server=127.0.0.1;uid=root;pwd=root;database={0};Allow User Variables=True . There must be Allow User Variables set to true in the connection string")]
+        public string MySqlConnection { get; set; }
 
     }
 }

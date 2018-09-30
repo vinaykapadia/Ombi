@@ -62,7 +62,16 @@ namespace Ombi.Store.Context
             {
                 i.StoragePath = string.Empty;
             }
-            optionsBuilder.UseSqlite($"Data Source={Path.Combine(i.StoragePath, "Ombi.db")}");
+
+            if (i.MySqlConnection.HasValue())
+            {
+                optionsBuilder.UseMySql(i.MySqlConnection);
+            }
+            else
+            {
+                optionsBuilder.UseSqlite($"Data Source={Path.Combine(i.StoragePath, "Ombi.db")}");
+
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -118,7 +127,8 @@ namespace Ombi.Store.Context
             }
 
             // VACUUM;
-            Database.ExecuteSqlCommand("VACUUM;");
+            
+            //Database.ExecuteSqlCommand("VACUUM;");
 
             // Make sure we have the roles
             var newsletterRole = Roles.Where(x => x.Name == OmbiRoles.ReceivesNewsletter);
