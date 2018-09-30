@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Ombi.Store.Context;
 
 namespace Ombi.Store.Migrations
 {
     [DbContext(typeof(OmbiContext))]
-    partial class OmbiContextModelSnapshot : ModelSnapshot
+    [Migration("20180930195919_MySql")]
+    partial class MySql
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -19,17 +21,16 @@ namespace Ombi.Store.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(85); 
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
                     b.Property<string>("Name")
-                        .HasMaxLength(85);
+                        .HasMaxLength(256);
 
                     b.Property<string>("NormalizedName")
-                        .HasMaxLength(85);
+                        .HasMaxLength(256);
 
                     b.HasKey("Id");
 
@@ -43,7 +44,7 @@ namespace Ombi.Store.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd().HasMaxLength(85);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("ClaimType");
 
@@ -62,7 +63,7 @@ namespace Ombi.Store.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd().HasMaxLength(85);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("ClaimType");
 
@@ -80,7 +81,7 @@ namespace Ombi.Store.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.Property<string>("LoginProvider").HasMaxLength(85);
+                    b.Property<string>("LoginProvider");
 
                     b.Property<string>("ProviderKey");
 
@@ -98,7 +99,7 @@ namespace Ombi.Store.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
-                    b.Property<string>("UserId").HasMaxLength(85);
+                    b.Property<string>("UserId");
 
                     b.Property<string>("RoleId");
 
@@ -111,7 +112,7 @@ namespace Ombi.Store.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.Property<string>("UserId").HasMaxLength(85);
+                    b.Property<string>("UserId");
 
                     b.Property<string>("LoginProvider");
 
@@ -128,7 +129,7 @@ namespace Ombi.Store.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasMaxLength(85);
+                        .HasMaxLength(10);
 
                     b.Property<int>("Type");
 
@@ -143,7 +144,7 @@ namespace Ombi.Store.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasMaxLength(85);
+                        .HasMaxLength(10);
 
                     b.Property<int>("AuditArea");
 
@@ -164,7 +165,7 @@ namespace Ombi.Store.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasMaxLength(85);
+                        .HasMaxLength(10);
 
                     b.Property<int>("TheMovieDbId");
 
@@ -177,7 +178,7 @@ namespace Ombi.Store.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasMaxLength(85);
+                        .HasMaxLength(10);
 
                     b.Property<DateTime>("AddedAt");
 
@@ -207,7 +208,7 @@ namespace Ombi.Store.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasMaxLength(85);
+                        .HasMaxLength(10);
 
                     b.Property<DateTime>("AddedAt");
 
@@ -240,7 +241,7 @@ namespace Ombi.Store.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasMaxLength(85);
+                        .HasMaxLength(10);
 
                     b.Property<string>("Content");
 
@@ -255,7 +256,7 @@ namespace Ombi.Store.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasMaxLength(85);
+                        .HasMaxLength(10);
 
                     b.Property<DateTime>("AddedAt");
 
@@ -282,7 +283,7 @@ namespace Ombi.Store.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasMaxLength(85);
+                        .HasMaxLength(10);
 
                     b.Property<int>("ArtistId");
 
@@ -301,7 +302,7 @@ namespace Ombi.Store.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasMaxLength(85);
+                        .HasMaxLength(10);
 
                     b.Property<int>("Agent");
 
@@ -322,7 +323,7 @@ namespace Ombi.Store.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasMaxLength(85);
+                        .HasMaxLength(10);
 
                     b.Property<DateTime>("AddedAt");
 
@@ -340,7 +341,7 @@ namespace Ombi.Store.Migrations
             modelBuilder.Entity("Ombi.Store.Entities.OmbiUser", b =>
                 {
                     b.Property<string>("Id")
-                        .ValueGeneratedOnAdd().HasMaxLength(85);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<int>("AccessFailedCount");
 
@@ -350,7 +351,7 @@ namespace Ombi.Store.Migrations
                         .IsConcurrencyToken();
 
                     b.Property<string>("Email")
-                        .HasMaxLength(85);
+                        .HasMaxLength(256);
 
                     b.Property<bool>("EmailConfirmed");
 
@@ -369,10 +370,10 @@ namespace Ombi.Store.Migrations
                     b.Property<int?>("MusicRequestLimit");
 
                     b.Property<string>("NormalizedEmail")
-                        .HasMaxLength(85);
+                        .HasMaxLength(256);
 
                     b.Property<string>("NormalizedUserName")
-                        .HasMaxLength(85);
+                        .HasMaxLength(256);
 
                     b.Property<string>("PasswordHash");
 
@@ -389,7 +390,7 @@ namespace Ombi.Store.Migrations
                     b.Property<string>("UserAccessToken");
 
                     b.Property<string>("UserName")
-                        .HasMaxLength(85);
+                        .HasMaxLength(256);
 
                     b.Property<int>("UserType");
 
@@ -409,7 +410,7 @@ namespace Ombi.Store.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasMaxLength(85);
+                        .HasMaxLength(10);
 
                     b.Property<int>("EpisodeNumber");
 
@@ -434,7 +435,7 @@ namespace Ombi.Store.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasMaxLength(85);
+                        .HasMaxLength(10);
 
                     b.Property<int>("ParentKey");
 
@@ -457,7 +458,7 @@ namespace Ombi.Store.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasMaxLength(85);
+                        .HasMaxLength(10);
 
                     b.Property<DateTime>("AddedAt");
 
@@ -488,7 +489,7 @@ namespace Ombi.Store.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasMaxLength(85);
+                        .HasMaxLength(10);
 
                     b.Property<bool>("HasFile");
 
@@ -503,7 +504,7 @@ namespace Ombi.Store.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasMaxLength(85);
+                        .HasMaxLength(10);
 
                     b.Property<DateTime>("AddedAt");
 
@@ -528,7 +529,7 @@ namespace Ombi.Store.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasMaxLength(85);
+                        .HasMaxLength(10);
 
                     b.Property<bool>("Approved");
 
@@ -577,7 +578,7 @@ namespace Ombi.Store.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasMaxLength(85);
+                        .HasMaxLength(10);
 
                     b.Property<bool>("Approved");
 
@@ -620,7 +621,7 @@ namespace Ombi.Store.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasMaxLength(85);
+                        .HasMaxLength(10);
 
                     b.Property<string>("Value");
 
@@ -633,7 +634,7 @@ namespace Ombi.Store.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasMaxLength(85);
+                        .HasMaxLength(10);
 
                     b.Property<string>("Comment");
 
@@ -656,7 +657,7 @@ namespace Ombi.Store.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasMaxLength(85);
+                        .HasMaxLength(10);
 
                     b.Property<string>("Description");
 
@@ -695,7 +696,7 @@ namespace Ombi.Store.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasMaxLength(85);
+                        .HasMaxLength(10);
 
                     b.Property<bool>("Approved");
 
@@ -752,7 +753,7 @@ namespace Ombi.Store.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasMaxLength(85);
+                        .HasMaxLength(10);
 
                     b.Property<int>("EpisodeCount");
 
@@ -775,7 +776,7 @@ namespace Ombi.Store.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasMaxLength(85);
+                        .HasMaxLength(10);
 
                     b.Property<string>("Background");
 
@@ -806,7 +807,7 @@ namespace Ombi.Store.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasMaxLength(85);
+                        .HasMaxLength(10);
 
                     b.Property<int>("RequestId");
 
@@ -825,7 +826,7 @@ namespace Ombi.Store.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasMaxLength(85);
+                        .HasMaxLength(10);
 
                     b.Property<int>("TvDbId");
 
@@ -838,7 +839,7 @@ namespace Ombi.Store.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasMaxLength(85);
+                        .HasMaxLength(10);
 
                     b.Property<int>("EpisodeNumber");
 
@@ -855,7 +856,7 @@ namespace Ombi.Store.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasMaxLength(85);
+                        .HasMaxLength(10);
 
                     b.Property<int>("TvDbId");
 
@@ -868,7 +869,7 @@ namespace Ombi.Store.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasMaxLength(85);
+                        .HasMaxLength(10);
 
                     b.Property<int>("EpisodeNumber");
 
@@ -887,7 +888,7 @@ namespace Ombi.Store.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasMaxLength(85);
+                        .HasMaxLength(10);
 
                     b.Property<string>("Token");
 
@@ -904,7 +905,7 @@ namespace Ombi.Store.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasMaxLength(85);
+                        .HasMaxLength(10);
 
                     b.Property<int>("Agent");
 
@@ -925,7 +926,7 @@ namespace Ombi.Store.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasMaxLength(85);
+                        .HasMaxLength(10);
 
                     b.Property<int>("RadarrQualityProfile");
 
@@ -952,7 +953,7 @@ namespace Ombi.Store.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasMaxLength(85);
+                        .HasMaxLength(10);
 
                     b.Property<DateTime>("AirDate");
 
@@ -981,7 +982,7 @@ namespace Ombi.Store.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasMaxLength(85);
+                        .HasMaxLength(10);
 
                     b.Property<int>("ChildRequestId");
 

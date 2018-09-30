@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -18,7 +20,6 @@ namespace Ombi.Store.Context
             if (_created) return;
 
             _created = true;
-            Database.Migrate();
         }
 
         public DbSet<NotificationTemplates> NotificationTemplates { get; set; }
@@ -88,12 +89,37 @@ namespace Ombi.Store.Context
                 .HasForeignKey(p => p.ParentId);
 
             base.OnModelCreating(builder);
-        }
+            builder.Entity<OmbiUser>(entity => entity.Property(m => m.NormalizedEmail).HasMaxLength(85));
+            builder.Entity<OmbiUser>(entity => entity.Property(m => m.NormalizedUserName).HasMaxLength(85));
+            builder.Entity<IdentityRole>(entity => entity.Property(m => m.NormalizedName).HasMaxLength(85));
+            builder.Entity<IdentityUserLogin<string>>(entity => entity.Property(m => m.UserId).HasMaxLength(85));
+            builder.Entity<IdentityUserRole<string>>(entity => entity.Property(m => m.UserId).HasMaxLength(85));
+            builder.Entity<IdentityUserRole<string>>(entity => entity.Property(m => m.RoleId).HasMaxLength(85));
+            builder.Entity<IdentityUserToken<string>>(entity => entity.Property(m => m.UserId).HasMaxLength(85));
+            builder.Entity<IdentityUserClaim<string>>(entity => entity.Property(m => m.UserId).HasMaxLength(85));
+            builder.Entity<IdentityRoleClaim<string>>(entity => entity.Property(m => m.RoleId).HasMaxLength(85));
 
+
+
+            IEnumerable<Entity> exporters = typeof(Entity)
+                .Assembly.GetTypes()
+                .Where(t => t.IsSubclassOf(typeof(Entity)) && !t.IsAbstract)
+                .Select(t => (Entity)Activator.CreateInstance(t));
+            foreach (var t in exporters)
+            {
+                builder.Entity(t.GetType(),entity => entity.Property("Id").HasMaxLength(85));
+            }
+            
+
+        }
+        public void Migrate()
+        {
+            Database.Migrate();
+        }
 
         public void Seed()
         {
-
+           
             // Add the tokens
             var fanArt = ApplicationConfigurations.FirstOrDefault(x => x.Type == ConfigurationTypes.FanartTv);
             if (fanArt == null)

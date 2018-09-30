@@ -50,6 +50,7 @@ namespace Ombi
             instance.MySqlConnection = mysql ?? string.Empty;
             using (var ctx = new OmbiContext())
             {
+                ctx.Migrate();
                 var config = ctx.ApplicationConfigurations.ToList();
                 var url = config.FirstOrDefault(x => x.Type == ConfigurationTypes.Url);
                 var dbBaseUrl = config.FirstOrDefault(x => x.Type == ConfigurationTypes.BaseUrl);
