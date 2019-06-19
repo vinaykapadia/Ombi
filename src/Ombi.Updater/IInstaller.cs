@@ -1,7 +1,7 @@
-﻿namespace Ombi.Updater
-{
-    public interface IInstaller
-    {
-        void Start(StartupOptions opt);
-    }
-}
+﻿//namespace Ombi.Updater
+//{
+//    public interface IInstaller
+//    {
+//        void Start(StartupOptions opt);
+//    }
+//}
