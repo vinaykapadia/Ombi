@@ -90,7 +90,7 @@ namespace Ombi.Store.Context
         public void Seed()
         {
             // Make sure we have the API User
-            var apiUserExists = Users.Any(x => x.UserName.Equals("Api", StringComparison.CurrentCultureIgnoreCase));
+            var apiUserExists = Users.Any(x => x.NormalizedUserName.Equals("Api", StringComparison.InvariantCultureIgnoreCase));
             if (!apiUserExists)
             {
                 Users.Add(new OmbiUser

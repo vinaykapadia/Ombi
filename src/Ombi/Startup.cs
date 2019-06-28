@@ -83,9 +83,7 @@ namespace Ombi
 
             services.AddJwtAuthentication(Configuration);
 
-            services.AddMvc()
-                .AddJsonOptions(x =>
-                    x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+            services.AddMvc();
 
             services.AddOmbiMappingProfile();
             services.AddAutoMapper(expression => { expression.AddCollectionMappers(); });
