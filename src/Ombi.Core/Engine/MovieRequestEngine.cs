@@ -84,7 +84,8 @@ namespace Ombi.Core.Engine
                 RequestedUserId = userDetails.Id,
                 Background = movieInfo.BackdropPath,
                 LangCode = model.LanguageCode,
-                RequestedByAlias = model.RequestedByAlias
+                RequestedByAlias = model.RequestedByAlias,
+                RootPathOverride = model.RootPathOverride
             };
 
             var usDates = movieInfo.ReleaseDates?.Results?.FirstOrDefault(x => x.IsoCode == "US");

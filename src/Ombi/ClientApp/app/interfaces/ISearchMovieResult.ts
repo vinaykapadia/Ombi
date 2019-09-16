@@ -27,6 +27,7 @@
     digitalReleaseDate: Date;
     subscribed: boolean;
     showSubscribe: boolean;
+    rootPathOverride: number;
 
     // for the UI
     requestProcessing: boolean;

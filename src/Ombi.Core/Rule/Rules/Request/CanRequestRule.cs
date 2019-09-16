@@ -1,4 +1,3 @@
-using Ombi.Store.Entities;
 using System.IO;
 using System.Security.Claims;
 using System.Security.Principal;

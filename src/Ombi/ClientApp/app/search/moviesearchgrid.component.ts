@@ -65,7 +65,7 @@ export class MovieSearchGridComponent implements OnInit {
         }
 
         try {
-            this.requestService.requestMovie({ theMovieDbId: searchResult.id, languageCode: "en" })
+            this.requestService.requestMovie({ theMovieDbId: searchResult.id, languageCode: "en", rootPathOverride: 0 })
                 .subscribe(x => {
                     this.result = x;
 

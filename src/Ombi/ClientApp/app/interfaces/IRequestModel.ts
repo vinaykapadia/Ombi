@@ -157,6 +157,7 @@ export interface IEpisodesRequests {
 export interface IMovieRequestModel {
   theMovieDbId: number;
   languageCode: string | undefined;
+  rootPathOverride: number | 0;
 }
 
 export interface IFilter {

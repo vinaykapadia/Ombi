@@ -10,6 +10,10 @@ import { IIssueCategory, ILanguageRefine, IRequestEngineResult, ISearchMovieResu
 import { NotificationService, RequestService, SearchService, SettingsService } from "../services";
 
 import * as languageData from "../../other/iso-lang.json";
+import Radarrservice = require("../services/applications/radarr.service");
+import RadarrService = Radarrservice.RadarrService;
+import Radarr = require("../interfaces/IRadarr");
+import IRadarrRootFolder = Radarr.IRadarrRootFolder;
 
 @Component({
     selector: "movie-search",
@@ -23,6 +27,7 @@ export class MovieSearchComponent implements OnInit {
     public movieRequested: Subject<void> = new Subject<void>();
     public movieResults: ISearchMovieResult[];
     public result: IRequestEngineResult;
+    public radarrRootFolders: IRadarrRootFolder[];
 
     public searchApplied = false;
     public refineSearchEnabled = false;
@@ -42,6 +47,7 @@ export class MovieSearchComponent implements OnInit {
 
     constructor(
         private searchService: SearchService, private requestService: RequestService,
+        private radarrService: RadarrService,
         private notificationService: NotificationService, private authService: AuthService,
         private readonly translate: TranslateService, private sanitizer: DomSanitizer,
         private readonly platformLocation: PlatformLocation, private settingsService: SettingsService) {
@@ -61,6 +67,9 @@ export class MovieSearchComponent implements OnInit {
     }
 
     public ngOnInit() {
+        this.radarrService.getRootFoldersFromSettings().subscribe(c => {
+            this.radarrRootFolders = c;
+        });
         this.searchText = "";
         this.movieResults = [];
         this.result = {
@@ -86,7 +95,7 @@ export class MovieSearchComponent implements OnInit {
 
         try {
             const language = this.selectedLanguage && this.selectedLanguage.length > 0 ? this.selectedLanguage : "en";
-            this.requestService.requestMovie({ theMovieDbId: searchResult.id, languageCode: language })
+            this.requestService.requestMovie({ theMovieDbId: searchResult.id, languageCode: language, rootPathOverride : searchResult.rootPathOverride })
                 .subscribe(x => {
                     this.result = x;
                     if (this.result.result) {
@@ -166,6 +175,11 @@ export class MovieSearchComponent implements OnInit {
                 this.movieResults = x;
                 this.getExtraInfo();
             });
+    }
+
+    public selectRootFolder(searchResult: ISearchMovieResult, rootFolderSelected: IRadarrRootFolder, event: any) {
+        event.preventDefault();
+        searchResult.rootPathOverride = rootFolderSelected.id;
     }
 
     public subscribe(r: ISearchMovieResult) {

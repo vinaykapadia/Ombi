@@ -135,8 +135,22 @@
                                 (click)="request(result)">
                                 <i *ngIf="result.requestProcessing" class="fa fa-circle-o-notch fa-spin fa-fw"></i> <i
                                     *ngIf="!result.requestProcessing && !result.processed" class="fa fa-plus"></i>
-                                <i *ngIf="result.processed && !result.requestProcessing" class="fa fa-check"></i> {{
-                                'Common.Request' | translate }}</button>
+                                <i *ngIf="result.processed && !result.requestProcessing" class="fa fa-check"></i> {{ 'Common.Request' | translate }}</button>
+                            <div *ngIf="radarrRootFolders?.length > 1" class="btn-group btn-split" id="rootFolderBtn">
+                                <button type="button" class="btn btn-sm btn-warning-outline">
+                                    <i class="fa fa-plus"></i> {{ 'Requests.ChangeRootFolder' | translate }}
+                                </button>
+                                <button type="button" class="btn btn-warning-outline dropdown-toggle" data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false">
+                                    <span class="caret"></span>
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li *ngFor="let folder of radarrRootFolders">
+                                        <a href="#" (click)="selectRootFolder(result, folder, $event)">{{folder.path}}</a>
+                                    </li>
+                                </ul>
+                            </div>
                         </ng-template>
                     </div>
                     <div *ngIf="result.requested">
